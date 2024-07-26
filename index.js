@@ -13,7 +13,14 @@ app.use(cors()); //ejecuta cors antes que las rutas
 //convrtir body a objeto js
 app.use(express.json());
 //creo rutas
+app.get("/probando",(req,res) => {
+    console.log("se ejecuto get probando")
+    //debo devolver algo, sino queda loop, puedo sendear codigo html <div> o jjson
+    return res.status(200).send({
+        "curso":"node"
+    })
 
+});
 //crea servidor y escucha peticiones http
 app.listen(puerto,()=> {
     console.log("servido corriend en puerto "+puerto);
