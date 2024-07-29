@@ -47,7 +47,8 @@ const crear = (req,res ) => {
  
 }
 const listar = (req, res) => {
-
+    //limitar
+    //Articulo.find({}).limit(3);  VER QUE HAY MAS limitadores y sort en MOONGOOSE docs
     Articulo.find({})
   
       .then((articulos) => {
@@ -67,7 +68,7 @@ const listar = (req, res) => {
         return res.status(200).send({
   
           status: "success",
-  
+          param: req.params.ultimos,
           articulos,
   
         });

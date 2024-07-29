@@ -7,4 +7,5 @@ const ArticuloControlador = require("../controladores/Articulo");
 router.post("/crear", ArticuloControlador.crear);
 router.get("/articulos", ArticuloControlador.listar);
 
+router.get("/articuloslimit/:ultimos?", ArticuloControlador.listar);
 module.exports = router;
