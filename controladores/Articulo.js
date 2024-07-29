@@ -91,7 +91,55 @@ const listar = (req, res) => {
   
   };
 
+
+
+  const uno = (req, res) => {
+    let id = req.params.id;
+    
+    Articulo.findById(id).
+  
+      then((articulo) => {
+  
+        if (!articulo) {
+  
+          return res.status(400).json({
+  
+            status: "error",
+  
+            mensaje: "No se han encontrado articulo",
+  
+          });
+  
+        }
+  
+        return res.status(200).send({
+  
+          status: "success",
+          articulo
+  
+        });
+  
+      })
+  
+      .catch((error) => {
+  
+        return res.status(500).json({
+  
+          status: "error",
+  
+          mensaje: "Ha ocurrido un error al listar los articulos",
+  
+          error: error.message,
+  
+        });
+  
+      });
+  
+  };
+
+
 module.exports = {
     crear,
-    listar
+    listar,
+    uno
 }

@@ -8,4 +8,6 @@ router.post("/crear", ArticuloControlador.crear);
 router.get("/articulos", ArticuloControlador.listar);
 
 router.get("/articuloslimit/:ultimos?", ArticuloControlador.listar);
+
+router.get("/articulos/:id?", ArticuloControlador.uno);
 module.exports = router;
