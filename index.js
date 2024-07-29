@@ -11,7 +11,8 @@ const puerto= 3900;
 app.use(cors()); //ejecuta cors antes que las rutas
 
 //convrtir body a objeto js
-app.use(express.json());
+app.use(express.json()); // esto es para recibir datos con content-type application-json
+app.use(express.urlencoded({extended:true})) //form-urlencoded - postman
 //creo rutas
 app.get("/probando",(req,res) => {
     console.log("se ejecuto get probando")
@@ -25,3 +26,11 @@ app.get("/probando",(req,res) => {
 app.listen(puerto,()=> {
     console.log("servido corriend en puerto "+puerto);
 });
+
+
+//RUTAS
+const rutas_articulo = require("./rutas/Articulo");
+
+//cargo rutas
+app.use("/api",rutas_articulo);
+
