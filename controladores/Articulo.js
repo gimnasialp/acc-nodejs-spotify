@@ -162,9 +162,48 @@ const listar = (req, res) => {
       });
   };
 
+  const editar = async (req, res) => {
+    try {
+        //  Recoger id articulo a editar
+        let articuloId = req.params.id;
+        // Recoger datos del body
+        let parametros = req.body;
+        // Validar datos
+        let validar_titulo = !validar.isEmpty(parametros.titulo) &&
+            validar.isLength(parametros.titulo, { min: 5, max: 15})
+        let validar_contenido = !validar.isEmpty(parametros.contenido)
+        if (!validar_titulo || !validar_contenido) {
+            throw new Error("No se ha validado la información revise que cumpla los terminos")
+        }
+ 
+        // Buscar y actualizar articulo
+        let articuloActualizado = await Articulo.findOneAndUpdate({ _id: articuloId }, parametros)  
+        if (!articuloActualizado) {
+            return res.status(500).json({
+                status: "error",
+                mensaje: "Error al actualizar",
+            })
+        }
+        // Devolver respuesta
+        return res.status(200).json({
+            status: "success updated",
+            mensaje: "Se ha actualizado correctamente",
+            articulo: articuloActualizado
+        })
+        // Devolver respuesta
+    } catch (error) {
+        return res.status(400).json({
+            status: "error",
+            error,
+            message: "Un error ha ocurrido mientras se editaba el articulo",
+        });
+    }
+}
+
 module.exports = {
     crear,
     listar,
     uno,
-    eliminar
+    eliminar,
+    editar
 }
