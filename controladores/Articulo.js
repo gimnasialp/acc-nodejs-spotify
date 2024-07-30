@@ -200,10 +200,20 @@ const listar = (req, res) => {
     }
 }
 
+const subir = (req,res) => {
+    console.log(req.file)
+
+    return res.status(200).json({
+        status: "success",
+        files: req.file
+    });
+}
+
 module.exports = {
     crear,
     listar,
     uno,
     eliminar,
-    editar
+    editar,
+    subir
 }
