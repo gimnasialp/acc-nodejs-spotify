@@ -138,8 +138,33 @@ const listar = (req, res) => {
   };
 
 
+  const eliminar = (req, res) => {
+    const id = req.params.id;
+   
+    Articulo.findOneAndDelete({ _id: id }) // Usamos _id como filtro
+      .then((articuloEliminado) => {
+        if (!articuloEliminado) {
+          return res.status(404).json({
+            status: "Error",
+            message: "Articulo no encontrado",
+          });
+        }
+        return res.status(200).json({
+          status: "Success",
+          message: "Articulo eliminado con éxito",
+        });
+      })
+      .catch((error) => {
+        return res.status(500).json({
+          status: "Error",
+          message: "Error al eliminar el artículo: " + error.message,
+        });
+      });
+  };
+
 module.exports = {
     crear,
     listar,
-    uno
+    uno,
+    eliminar
 }
